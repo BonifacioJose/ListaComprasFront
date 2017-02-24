@@ -4,11 +4,15 @@ app.controller('AppController', function load() {
 });
 
 app.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/home");
+    $urlRouterProvider.otherwise("home");
 
     $stateProvider
             .state('home', {
                 url: "/home",
-                templateUrl: "index.html"
+                templateUrl: "page/listacompra/lista.html"
             })
+            .state('cadastro', {
+                url: "/cadastro",
+                templateUrl: "page/listacompra/cadastro.html"
+            });
 });
