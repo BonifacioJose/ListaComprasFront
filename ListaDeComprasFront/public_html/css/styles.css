@@ -1,0 +1,6 @@
+@media screen and (min-width: 480px) {
+    .fixed-action-btn {
+        right: 144px;
+        top: 20px;
+    }
+}
