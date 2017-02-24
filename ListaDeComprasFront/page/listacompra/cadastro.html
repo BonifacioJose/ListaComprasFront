@@ -4,7 +4,16 @@
             <a ui-sref="home">Voltar</a>
         </div>
     </div>
+
+    <div class="row" ng-controller="FormController as formController">        
+        <form ng-submit="formController.save()" role="form">
+            <input type="hidden" name="id" ng-model="formController.listaCompra.id" />
+            <input type="text" ng-model="formController.listaCompra.title" class="form-control"/>
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </form>
+    </div>
 </div>
+
 
 <div class="fixed-action-btn">
     <a ui-sref="listaCompra" class="btn-floating btn-large pink">
