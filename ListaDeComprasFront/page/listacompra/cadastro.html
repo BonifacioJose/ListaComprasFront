@@ -1,22 +1,72 @@
 <div class="container">
-    <div class="row">
-        <div class="col s12">
-            <a ui-sref="home">Voltar</a>
-        </div>
+    <br/>
+    <div class="row">        
+        <a ui-sref="home" class="btn-floating"><i class="material-icons">keyboard_arrow_left</i></a>
     </div>
 
     <div class="row" ng-controller="FormController as formController">        
-        <form ng-submit="formController.save()" role="form">
-            <input type="hidden" name="id" ng-model="formController.listaCompra.id" />
-            <input type="text" ng-model="formController.listaCompra.title" class="form-control"/>
-            <input type="submit" class="btn btn-primary" value="Save" />
+        <form ng-submit="formController.save()" role="form" class="col s12">
+            <div class="row">
+                <div class="input-field">
+                    <input id="nome" placeholder="Nome" type="text" class="validate" ng-model="formController.listaCompra.title">
+                    <label for="nome" class="active">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <table class="bordered highlight small-input">
+                    <thead>
+                        <tr>
+                            <th data-field="produto">Produto</th>
+                            <th class="center" data-field="quantidade">Quantidade</th>
+                            <th class="right" data-field="valor">Valor (R$)</th>
+                            <th data-field="acoes"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in formController.produtos">
+                            <td>{{item.title}}</td>
+                            <td class="center">
+                                <div class="input-field col s12 center">
+                                    <input id="quantidade" type="text" class="validate center-align">
+                                </div>
+                            </td>
+                            <td>                                
+                                <div class="input-field col s12 right">
+                                    <input id="valor" type="text" ng-model="item.userId" class="validate right-align">
+                                </div>
+                            </td>   
+                            <td>
+                                <a class="btn-floating grey lighten-5" ng-click="formController.removerProduto(item)"><i class="material-icons grey darken-1-text">delete</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="right">
+                    <h4>Total: R$ {{formController.valorTotal}}</h4> 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m3 card-produto z-depth-2" ng-repeat="item in formController.lista">        
+                    <div class="imagem-container">
+                        <img class="imagem" src="https://www.google.com.br/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"/>
+                    </div>
+                    <div class="informacoes">
+                        <div>Produto 1 {{item.id}}</div>
+                        <div>{{item.id}}</div>
+                    </div>
+                    <button class="btn-floating pink" ng-click="formController.adicionarProduto(item)"><i class="material-icons">add</i></button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 
 
 <div class="fixed-action-btn">
-    <a ui-sref="listaCompra" class="btn-floating btn-large pink">
+    <button type="submit" ng-click="save()" class="btn-floating btn-large pink">
         <i class="large material-icons">check</i>
-    </a>
+    </button>
 </div>

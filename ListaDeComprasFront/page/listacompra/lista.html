@@ -12,41 +12,14 @@
                 </thead>
 
                 <tbody>
-                	<tr ng-repeat="item in listaController.lista">
+                    <tr ng-repeat="item in listaController.lista">
                         <td>{{item.title}}</td>
                         <td></td>
                         <td></td>
                         <td class="right">                        	
-						<a ui-sref="edit({id: item.id})" class="btn-floating"><i class="material-icons">add</i></a>
-						<a class="btn-floating red"><i class="material-icons">delete</i></a>
+                            <a ui-sref="edit({id: item.id})" class="btn-floating"><i class="material-icons">edit</i></a>
+                            <a class="btn-floating red"><i class="material-icons">delete</i></a>
                         </td>                		
-                	</tr>
-                    <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>$0.87</td>
-                        <td class="right">                        	
-						<a ui-sref="edit({id: 1})" class="btn-floating"><i class="material-icons">add</i></a>
-						<a class="btn-floating red"><i class="material-icons">delete</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td>Jellybean</td>
-                        <td>$3.76</td>
-                        <td class="right">                        	
-						<a ui-sref="edit({id: 2})" class="btn-floating"><i class="material-icons">add</i></a>
-						<a class="btn-floating red"><i class="material-icons">delete</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
-                        <td>Lollipop</td>
-                        <td>$7.00</td>
-                        <td class="right">                        	
-						<a ui-sref="edit({id: 3})" class="btn-floating"><i class="material-icons">add</i></a>
-						<a class="btn-floating red"><i class="material-icons">delete</i></a>
-                        </td>
                     </tr>
                 </tbody>
             </table>

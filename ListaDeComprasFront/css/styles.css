@@ -4,3 +4,40 @@
         top: 20px;
     }
 }
+.block {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(100, 100, 100, 0.5);
+    z-index: 5000;
+}
+.block .preloader-wrapper {
+    left: 45%;
+}
+.small-input .input-field {
+    margin-top: 0rem;
+}
+.small-input .input-field input {
+    height: 2rem;
+}
+.card-produto {
+    border-radius: 4px;
+    position: relative;
+    margin-top: 10px;
+}
+.card-produto .imagem-container {
+    height: 120px;
+}
+.card-produto .imagem-container img {
+    width: 100%;
+    height: auto;
+}
+.card-produto .informacoes {
+    padding: 10px;
+}
+.card-produto .btn-floating {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}
