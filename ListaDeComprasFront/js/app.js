@@ -1,60 +1,89 @@
-var app = angular.module('ListaCompras', ['ngResource', 'ui.router', 'blockUI']);
+var app = angular.module('ListaCompras', ['ngResource', 'ui.router', 'blockUI', 'ui.utils.masks']);
+
+app.run(function ($rootScope) {
+    $rootScope.currencyFormat = function (valor) {
+        return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}).replace("R$", "");
+    };
+});
 
 app.controller('AppController', function load() {
 });
 
 app.factory('ListaCompraFactory', function ($resource) {
-    return $resource('https://jsonplaceholder.typicode.com/posts/:id');
+    return $resource('http://702d1b94.ngrok.io/rest/listacompra/:id');
 });
 
-app.controller('ListaController', function (ListaCompraFactory, $state, $stateParams) {
+app.factory('ProdutoFactory', function ($resource) {
+    return $resource('http://702d1b94.ngrok.io/rest/produto/:id');
+});
+
+app.factory('ListaCompraProdutoFactory', function ($resource) {
+    return $resource('http://702d1b94.ngrok.io/rest/listacompraproduto/:idListaCompra');
+});
+
+app.controller('ListaController', function (ListaCompraFactory) {
     this.lista = ListaCompraFactory.query();
+
+    this.remove = function (listaCompra) {
+        listaCompra.$delete({"id": listaCompra.id});
+        var index = this.lista.indexOf(listaCompra);
+        if (index > -1) {
+            this.lista.splice(index, 1);
+        }
+        ;
+    };
 });
 
-app.controller('FormController', function (ListaCompraFactory, $state, $stateParams) {
+app.controller('FormController', function (ListaCompraFactory, ListaCompraProdutoFactory, ProdutoFactory, $state, $stateParams) {
     this.valorTotal = 0;
     if ($stateParams.id) {
         this.listaCompra = ListaCompraFactory.get({id: $stateParams.id});
-        this.lista = ListaCompraFactory.query();
-        console.log(this.lista);
-        this.produtos = [];
+        this.lista = ListaCompraProdutoFactory.query({idListaCompra: $stateParams.id});
     } else {
-        this.listaCompra = new ListaCompraFactory();
-        this.lista = ListaCompraFactory.query();
-        this.produtos = [];
+        this.listaCompra = new ListaCompraFactory;
+        this.listaCompra.listaProdutos = [];
+        this.lista = ProdutoFactory.query();
+    }
+    ;
+
+    this.save = function () {
+        this.listaCompra.$save(function (listaCompra) {
+            $state.go('edit', {id: listaCompra.id});
+        });
+        this.valorTotal = 0;
     };
 
-//    this.save = function () {
-//        this.listaCompra.$save(function (listaCompra) {
-//            $state.go('edit/{id}', {id: listaCompra.id});
-//        });
-//    };
-
-    this.atualizarValorTotal = function () {
-        this.valorTotal = 0;
-        for (var i = 0; i < this.produtos.length; i++) {
-            this.valorTotal += this.produtos[i].id;
-        }
+    this.valorTotalFunction = function () {
+        valorTotal = 0;
+        if (this.listaCompra && this.listaCompra.listaProdutos){
+        for (var i = 0; i < this.listaCompra.listaProdutos.length; i++) {
+            var produto = this.listaCompra.listaProdutos[i];
+            valorTotal += (produto.valorAtualizado * produto.quantidade);
+        }}
+        return valorTotal;
     };
 
     this.adicionarProduto = function (produto) {
-        this.produtos.push(produto);
+        produto.quantidade = 1;
+        produto.valorAtualizado = produto.valor;
+        produto.idProduto = produto.id;
+        this.listaCompra.listaProdutos.push(produto);
         var index = this.lista.indexOf(produto);
         if (index > -1) {
             this.lista.splice(index, 1);
         }
-        this.atualizarValorTotal();
     };
 
     this.removerProduto = function (produto) {
+        produto.quantidade = 1;
+        produto.valorAtualizado = produto.valor;
         this.lista.push(produto);
-        var index = this.produtos.indexOf(produto);
+        var index = this.listaCompra.listaProdutos.indexOf(produto);
         if (index > -1) {
-            this.produtos.splice(index, 1);
+            this.listaCompra.listaProdutos.splice(index, 1);
         }
-        this.atualizarValorTotal();
     };
-    
+
 });
 
 app.config(function (blockUIConfig) {

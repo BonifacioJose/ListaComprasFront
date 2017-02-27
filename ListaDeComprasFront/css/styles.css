@@ -27,7 +27,7 @@
     margin-top: 10px;
 }
 .card-produto .imagem-container {
-    height: 120px;
+    height: 220px;
 }
 .card-produto .imagem-container img {
     width: 100%;
@@ -38,6 +38,6 @@
 }
 .card-produto .btn-floating {
     position: absolute;
-    top: 100px;
+    top: 211px;
     right: 10px;
 }

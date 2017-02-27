@@ -4,21 +4,21 @@
             <table class="bordered highlight">
                 <thead>
                     <tr>
-                        <th data-field="id">Lista</th>
-                        <th data-field="name">Valor Total</th>
-                        <th data-field="price">Data</th>
-                        <th data-field="actions"></th>
+                        <th data-field="nome">Lista</th>
+                        <th data-field="data" class="center">Data</th>
+                        <th data-field="valor" class="right-align">Valor Total (R$)</th>
+                        <th data-field="actions" class="right"></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr ng-repeat="item in listaController.lista">
-                        <td>{{item.title}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{item.nome}}</td>
+                        <td class="center">{{item.dataCadastro | date:'medium'}}</td>
+                        <td class="right-align">{{currencyFormat(item.valor)}}</td>
                         <td class="right">                        	
                             <a ui-sref="edit({id: item.id})" class="btn-floating"><i class="material-icons">edit</i></a>
-                            <a class="btn-floating red"><i class="material-icons">delete</i></a>
+                            <a ng-click="listaController.remove(item)" class="btn-floating red"><i class="material-icons">delete</i></a>
                         </td>                		
                     </tr>
                 </tbody>
