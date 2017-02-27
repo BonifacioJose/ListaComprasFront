@@ -18,7 +18,8 @@
                         <tr>
                             <th data-field="produto">Produto</th>
                             <th class="center" data-field="quantidade">Quantidade</th>
-                            <th class="right" data-field="valor">Valor (R$)</th>
+                            <th class="right-align" data-field="valor">Valor (R$)</th>
+                            <th class="right-align" data-field="valor">Total</th>
                             <th data-field="acoes"></th>
                         </tr>
                     </thead>
@@ -31,8 +32,13 @@
                                 </div>
                             </td>
                             <td>                                
-                                <div class="input-field col s12 right">
-                                    <input id="valor" type="text" ng-model="item.valorAtualizado" ng-change="formController.atualizarValorTotal()" ui-money-mask class="validate right-align">
+                                <div class="input-field col s12 right-align">
+                                    <span>{{currencyFormat(item.valorAtualizado)}}<span>
+                                </div>
+                            </td>   
+                            <td>                                
+                                <div class="input-field col s12 right-align">
+                                    <span>{{currencyFormat(item.quantidade * item.valorAtualizado)}}</span>
                                 </div>
                             </td>   
                             <td>
