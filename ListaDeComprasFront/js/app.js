@@ -10,15 +10,15 @@ app.controller('AppController', function load() {
 });
 
 app.factory('ListaCompraFactory', function ($resource) {
-    return $resource('http://702d1b94.ngrok.io/rest/listacompra/:id');
+    return $resource('http://3812ad01.ngrok.io/rest/listacompra/:id');
 });
 
 app.factory('ProdutoFactory', function ($resource) {
-    return $resource('http://702d1b94.ngrok.io/rest/produto/:id');
+    return $resource('http://3812ad01.ngrok.io/rest/produto/:id');
 });
 
 app.factory('ListaCompraProdutoFactory', function ($resource) {
-    return $resource('http://702d1b94.ngrok.io/rest/listacompraproduto/:idListaCompra');
+    return $resource('http://3812ad01.ngrok.io/rest/listacompraproduto/:idListaCompra');
 });
 
 app.controller('ListaController', function (ListaCompraFactory) {
